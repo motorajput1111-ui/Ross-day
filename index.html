@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Rose Day Prabhat 🌹</title>
+<title>Happy Rose Day 🌹</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -10,261 +10,218 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+  font-family:'Segoe UI',sans-serif;
 }
 
 body{
-  background:radial-gradient(circle at top,#ff9a9e,#ff3c6f,#c9184a);
-  color:white;
-  overflow:hidden;
-}
-
-/* pages */
-.page{
-  width:100%;
   height:100vh;
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  animation:fade 1s ease;
+  background:linear-gradient(135deg,#ff4e8a,#ff9a9e);
+  overflow:hidden;
+  color:white;
 }
 
-.page.active{display:flex;}
-
-h1{
-  font-size:2.6rem;
-  margin-bottom:15px;
-  text-shadow:0 0 15px rgba(255,255,255,.4);
-}
-
-p{
-  font-size:1.1rem;
-  max-width:540px;
-  line-height:1.8;
-  opacity:.95;
-}
-
-.sender{
-  margin-top:18px;
-  font-style:italic;
-}
-
-/* buttons */
-button{
-  margin-top:28px;
-  padding:12px 32px;
-  border:none;
-  border-radius:40px;
-  background:white;
-  color:#c9184a;
-  font-size:1rem;
-  cursor:pointer;
-  transition:.3s;
-}
-button:hover{transform:scale(1.08);}
-
-/* flowers */
-.flowers{
-  display:flex;
-  gap:35px;
-  margin-top:35px;
-}
-
-.flower{
-  font-size:3.6rem;
-  cursor:pointer;
-  animation:pulse 2s infinite;
-}
-
-/* floating roses */
-.roses{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-}
-
-.rose{
+/* Floating roses */
+.rose-float{
   position:absolute;
   font-size:22px;
-  animation:float 7s linear infinite;
+  opacity:0.7;
+  animation: float 10s linear infinite;
 }
 
-/* animations */
 @keyframes float{
-  0%{transform:translateY(110vh);opacity:0;}
-  30%{opacity:1;}
-  100%{transform:translateY(-10vh);opacity:0;}
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(25px);}
-  to{opacity:1;transform:translateY(0);}
+/* Pages */
+.page{
+  display:none;
+  height:100vh;
+  width:100%;
+  padding:20px;
+  text-align:center;
+}
+
+.page.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Glowing rose */
+.glow-rose{
+  font-size:90px;
+  margin-bottom:20px;
+  animation: glow 2s infinite;
+}
+
+@keyframes glow{
+  0%{text-shadow:0 0 10px #fff;}
+  50%{text-shadow:0 0 30px #ff003c;}
+  100%{text-shadow:0 0 10px #fff;}
+}
+
+/* Buttons */
+button{
+  padding:14px 30px;
+  margin:12px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.accept{
+  background:#ff003c;
+  color:white;
+  box-shadow:0 0 15px #ff003c;
+}
+
+.reject{
+  background:white;
+  color:#ff003c;
+  position:absolute;
+}
+
+/* Rose button */
+.big-rose{
+  font-size:80px;
+  margin-top:20px;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
 }
 
 @keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.12);}
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
 }
 
-/* hidden youtube */
-#ytplayer{
-  position:absolute;
-  width:1px;
-  height:1px;
-  opacity:0;
+/* Secret */
+.secret{
+  opacity:0.15;
+  margin-top:40px;
+  font-size:14px;
 }
 </style>
 </head>
 
-<body onclick="playSongOnce()">
+<body onclick="playSong()">
 
-<div class="roses"></div>
-
-<!-- YouTube song -->
-<iframe id="ytplayer"
+<!-- Hidden YouTube -->
+<iframe id="yt"
 src="https://www.youtube.com/embed/RzSIDoA1ZDw?enablejsapi=1"
-allow="autoplay"
-frameborder="0"></iframe>
+style="display:none"></iframe>
 
 <!-- PAGE 1 -->
-<div class="page active">
-  <h1>🌹 Happy Rose Day 🌹</h1>
-  <p>
-    A rose is a simple way<br>
-    to express something meaningful.
+<div class="page active" id="p1">
+  <div class="glow-rose">🌹</div>
+
+  <h1>Happy Rose Day Prabhat</h1>
+  <p style="margin:20px;font-size:18px;">
+    A rose for you,<br>
+    not just for today,<br>
+    but for every smile you unknowingly give 💖
   </p>
-  <button onclick="nextPage()">Begin 🌸</button>
+
+  <button class="accept" onclick="go(2)">Accept 🌹</button>
+  <button class="reject" id="no">Can't Accept ❌</button>
+
+  <p style="margin-top:30px;">— From Sneha 💌</p>
 </div>
 
 <!-- PAGE 2 -->
-<div class="page">
-  <h1>Hey Prabhat 🌹</h1>
-  <p>
-    Some people bring warmth and comfort
-    without even trying — you’re one of them.
+<div class="page" id="p2">
+  <h2>This Rose Is Waiting 🌹</h2>
+  <p style="margin-top:15px;">
+    Tap the rose below,<br>
+    it has more feelings inside it ✨
   </p>
-  <div class="sender">— From Sneha</div>
-  <button onclick="nextPage()">Next ✨</button>
+
+  <div class="big-rose" onclick="go(3)">🌹</div>
+
+  <div class="secret" onclick="go(6)">secret rose</div>
 </div>
 
-<!-- FLOWER SELECT -->
-<div class="page">
-  <h1>Choose a Rose 🌹</h1>
-  <p>(One rose hides a secret)</p>
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <h1>Dear Prabhat 💖</h1>
+  <p style="margin-top:20px;font-size:20px;">
+    Some people enter our lives quietly,<br>
+    but leave a mark so loud<br>
+    that silence never feels the same again 🌙
+  </p>
 
-  <div class="flowers">
-    <div class="flower"
-         onclick="openRose()"
-         ondblclick="openSecret()">🌹</div>
-    <div class="flower" onclick="openFlower(1)">🌷</div>
-    <div class="flower" onclick="openFlower(2)">🌼</div>
-  </div>
+  <button class="accept" onclick="go(4)">Next 🌸</button>
 </div>
 
-<!-- ROSE PAGE -->
-<div class="page">
-  <h1>🌹 For You</h1>
-  <p>
-    This rose is for admiration,
-    respect, and gentle care.
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1>Another Rose 🌹</h1>
+  <p style="margin-top:20px;font-size:20px;">
+    I don’t know when it started,<br>
+    but somehow your presence<br>
+    began to feel comforting ✨
   </p>
-  <div class="sender">— Sneha</div>
-  <button onclick="nextPage()">Next 💫</button>
+
+  <button class="accept" onclick="go(5)">One More 💫</button>
 </div>
 
-<!-- FLOWER 2 -->
-<div class="page">
-  <h1>🌷</h1>
-  <p>
-    Soft and calm,
-    just like your presence.
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+  <h1>Still Reading? 💖</h1>
+  <p style="margin-top:20px;font-size:20px;">
+    Then maybe this rose found<br>
+    the right person after all 🌹<br><br>
+    Some feelings don’t need names,<br>
+    they just need honesty 💌
   </p>
-  <button onclick="nextPage()">Next 🌼</button>
-</div>
-
-<!-- FLOWER 3 -->
-<div class="page">
-  <h1>🌼</h1>
-  <p>
-    Bright energy,
-    good vibes always.
-  </p>
-  <button onclick="nextPage()">Final 🌹</button>
-</div>
-
-<!-- FINAL -->
-<div class="page">
-  <h1>🌹 Happy Rose Day 🌹</h1>
-  <p>
-    Wishing you peace,
-    smiles, and warmth.
-  </p>
-  <div class="sender">— Sneha 💖</div>
 </div>
 
 <!-- SECRET PAGE -->
-<div class="page">
+<div class="page" id="p6">
   <h1>🌹 Secret Rose 🌹</h1>
-  <p>
-    Prabhat,<br><br>
-    This rose is hidden because
-    not every feeling needs words.
+  <p style="margin-top:20px;font-size:22px;">
+    Sneha ❤️ Prabhat<br><br>
+    This rose stays hidden,<br>
+    but the feeling behind it is real ✨
   </p>
-  <div class="sender">— Sneha ❤️</div>
 </div>
 
 <script>
-let pages=document.querySelectorAll('.page');
-let index=0;
-let songPlayed=false;
+/* Moving button */
+const no=document.getElementById("no");
+no.addEventListener("mouseover",()=>{
+  no.style.left=Math.random()*80+"%";
+  no.style.top=Math.random()*80+"%";
+});
 
-function nextPage(){
-  pages[index].classList.remove('active');
-  index++;
-  pages[index].classList.add('active');
+/* Pages */
+function go(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
 }
 
-function openFlower(i){
-  pages[index].classList.remove('active');
-  index=4+i;
-  pages[index].classList.add('active');
-}
-
-function openRose(){
-  pages[index].classList.remove('active');
-  index=3;
-  pages[index].classList.add('active');
-}
-
-function openSecret(){
-  pages[index].classList.remove('active');
-  index=7;
-  pages[index].classList.add('active');
-}
-
-function playSongOnce(){
-  if(!songPlayed){
-    document.getElementById("ytplayer").src =
-      "https://www.youtube.com/embed/RzSIDoA1ZDw?autoplay=1";
-    songPlayed=true;
+/* Play song */
+let played=false;
+function playSong(){
+  if(!played){
+    document.getElementById("yt").contentWindow.postMessage(
+      '{"event":"command","func":"playVideo","args":""}',"*");
+    played=true;
   }
 }
 
-/* floating roses */
-const roses=document.querySelector('.roses');
-setInterval(()=>{
-  let r=document.createElement('div');
-  r.className='rose';
-  r.innerHTML='🌹';
-  r.style.left=Math.random()*100+'vw';
-  r.style.fontSize=(16+Math.random()*24)+'px';
-  r.style.animationDuration=(5+Math.random()*5)+'s';
-  roses.appendChild(r);
-  setTimeout(()=>r.remove(),9000);
-},350);
+/* Floating roses */
+for(let i=0;i<20;i++){
+  let r=document.createElement("div");
+  r.className="rose-float";
+  r.innerHTML="🌹";
+  r.style.left=Math.random()*100+"%";
+  r.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(r);
+}
 </script>
 
 </body>
