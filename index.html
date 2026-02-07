@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day Prabhat 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:radial-gradient(circle at top,#ff9a9e,#ff3c6f,#c9184a);
+  color:white;
+  overflow:hidden;
+}
+
+/* pages */
+.page{
+  width:100%;
+  height:100vh;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  animation:fade 1s ease;
+}
+
+.page.active{display:flex;}
+
+h1{
+  font-size:2.6rem;
+  margin-bottom:15px;
+  text-shadow:0 0 15px rgba(255,255,255,.4);
+}
+
+p{
+  font-size:1.1rem;
+  max-width:540px;
+  line-height:1.8;
+  opacity:.95;
+}
+
+.sender{
+  margin-top:18px;
+  font-style:italic;
+}
+
+/* buttons */
+button{
+  margin-top:28px;
+  padding:12px 32px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#c9184a;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{transform:scale(1.08);}
+
+/* flowers */
+.flowers{
+  display:flex;
+  gap:35px;
+  margin-top:35px;
+}
+
+.flower{
+  font-size:3.6rem;
+  cursor:pointer;
+  animation:pulse 2s infinite;
+}
+
+/* floating roses */
+.roses{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.rose{
+  position:absolute;
+  font-size:22px;
+  animation:float 7s linear infinite;
+}
+
+/* animations */
+@keyframes float{
+  0%{transform:translateY(110vh);opacity:0;}
+  30%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(25px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.12);}
+}
+
+/* hidden youtube */
+#ytplayer{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+}
+</style>
+</head>
+
+<body onclick="playSongOnce()">
+
+<div class="roses"></div>
+
+<!-- YouTube song -->
+<iframe id="ytplayer"
+src="https://www.youtube.com/embed/RzSIDoA1ZDw?enablejsapi=1"
+allow="autoplay"
+frameborder="0"></iframe>
+
+<!-- PAGE 1 -->
+<div class="page active">
+  <h1>🌹 Happy Rose Day 🌹</h1>
+  <p>
+    A rose is a simple way<br>
+    to express something meaningful.
+  </p>
+  <button onclick="nextPage()">Begin 🌸</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <h1>Hey Prabhat 🌹</h1>
+  <p>
+    Some people bring warmth and comfort
+    without even trying — you’re one of them.
+  </p>
+  <div class="sender">— From Sneha</div>
+  <button onclick="nextPage()">Next ✨</button>
+</div>
+
+<!-- FLOWER SELECT -->
+<div class="page">
+  <h1>Choose a Rose 🌹</h1>
+  <p>(One rose hides a secret)</p>
+
+  <div class="flowers">
+    <div class="flower"
+         onclick="openRose()"
+         ondblclick="openSecret()">🌹</div>
+    <div class="flower" onclick="openFlower(1)">🌷</div>
+    <div class="flower" onclick="openFlower(2)">🌼</div>
+  </div>
+</div>
+
+<!-- ROSE PAGE -->
+<div class="page">
+  <h1>🌹 For You</h1>
+  <p>
+    This rose is for admiration,
+    respect, and gentle care.
+  </p>
+  <div class="sender">— Sneha</div>
+  <button onclick="nextPage()">Next 💫</button>
+</div>
+
+<!-- FLOWER 2 -->
+<div class="page">
+  <h1>🌷</h1>
+  <p>
+    Soft and calm,
+    just like your presence.
+  </p>
+  <button onclick="nextPage()">Next 🌼</button>
+</div>
+
+<!-- FLOWER 3 -->
+<div class="page">
+  <h1>🌼</h1>
+  <p>
+    Bright energy,
+    good vibes always.
+  </p>
+  <button onclick="nextPage()">Final 🌹</button>
+</div>
+
+<!-- FINAL -->
+<div class="page">
+  <h1>🌹 Happy Rose Day 🌹</h1>
+  <p>
+    Wishing you peace,
+    smiles, and warmth.
+  </p>
+  <div class="sender">— Sneha 💖</div>
+</div>
+
+<!-- SECRET PAGE -->
+<div class="page">
+  <h1>🌹 Secret Rose 🌹</h1>
+  <p>
+    Prabhat,<br><br>
+    This rose is hidden because
+    not every feeling needs words.
+  </p>
+  <div class="sender">— Sneha ❤️</div>
+</div>
+
+<script>
+let pages=document.querySelectorAll('.page');
+let index=0;
+let songPlayed=false;
+
+function nextPage(){
+  pages[index].classList.remove('active');
+  index++;
+  pages[index].classList.add('active');
+}
+
+function openFlower(i){
+  pages[index].classList.remove('active');
+  index=4+i;
+  pages[index].classList.add('active');
+}
+
+function openRose(){
+  pages[index].classList.remove('active');
+  index=3;
+  pages[index].classList.add('active');
+}
+
+function openSecret(){
+  pages[index].classList.remove('active');
+  index=7;
+  pages[index].classList.add('active');
+}
+
+function playSongOnce(){
+  if(!songPlayed){
+    document.getElementById("ytplayer").src =
+      "https://www.youtube.com/embed/RzSIDoA1ZDw?autoplay=1";
+    songPlayed=true;
+  }
+}
+
+/* floating roses */
+const roses=document.querySelector('.roses');
+setInterval(()=>{
+  let r=document.createElement('div');
+  r.className='rose';
+  r.innerHTML='🌹';
+  r.style.left=Math.random()*100+'vw';
+  r.style.fontSize=(16+Math.random()*24)+'px';
+  r.style.animationDuration=(5+Math.random()*5)+'s';
+  roses.appendChild(r);
+  setTimeout(()=>r.remove(),9000);
+},350);
+</script>
+
+</body>
+</html>
