@@ -16,10 +16,10 @@
 body{
   height:100vh;
   overflow:hidden;
+  color:white;
   background:linear-gradient(270deg,#ff4e8a,#ff9a9e,#ff6a88);
   background-size:600% 600%;
   animation:bgMove 12s ease infinite;
-  color:white;
 }
 
 @keyframes bgMove{
@@ -28,25 +28,31 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* floating hearts */
-.heart{
+/* Floating glowing dots */
+.dot{
   position:absolute;
-  font-size:18px;
-  opacity:0.6;
+  width:6px;
+  height:6px;
+  background:rgba(255,255,255,0.7);
+  border-radius:50%;
   animation: float 10s linear infinite;
 }
+
 @keyframes float{
-  0%{transform:translateY(100vh)}
-  100%{transform:translateY(-10vh)}
+  0%{transform:translateY(100vh); opacity:0}
+  50%{opacity:1}
+  100%{transform:translateY(-10vh); opacity:0}
 }
 
-/* pages */
+/* Pages */
 .page{
   display:none;
   height:100vh;
   width:100%;
+  text-align:center;
   padding:20px;
 }
+
 .page.active{
   display:flex;
   flex-direction:column;
@@ -54,129 +60,149 @@ body{
   align-items:center;
 }
 
-/* rose */
+/* Glowing rose */
 .glow-rose{
   font-size:90px;
   margin-bottom:20px;
   animation: glow 2s infinite;
 }
+
 @keyframes glow{
   0%{text-shadow:0 0 10px #fff}
   50%{text-shadow:0 0 35px #ff003c}
   100%{text-shadow:0 0 10px #fff}
 }
 
-/* buttons */
+/* Buttons */
 button{
-  padding:14px 30px;
-  margin:12px;
+  padding:14px 32px;
+  margin:14px;
   border:none;
   border-radius:30px;
   font-size:18px;
+  cursor:pointer;
 }
+
 .accept{
   background:#ff003c;
   color:white;
   box-shadow:0 0 15px #ff003c;
 }
+
 .reject{
   background:white;
   color:#ff003c;
   position:absolute;
 }
 
-/* CHAT STYLE */
-.chat{
-  width:100%;
-  max-width:360px;
-  background:#111;
-  border-radius:20px;
-  padding:15px;
-}
-.msg{
-  max-width:80%;
-  padding:10px 14px;
-  margin:10px 0;
-  border-radius:15px;
-  font-size:15px;
-  animation: fadeIn 0.6s ease;
-}
-.from{
-  background:#ff4e8a;
-  align-self:flex-end;
-  border-bottom-right-radius:4px;
-}
-.to{
-  background:#333;
-  align-self:flex-start;
-  border-bottom-left-radius:4px;
+/* Rose selector */
+.big-rose{
+  font-size:80px;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.25)}
+  100%{transform:scale(1)}
+}
+
+.secret{
+  opacity:0.15;
+  margin-top:40px;
+  font-size:14px;
 }
 </style>
 </head>
 
 <body onclick="startMusic()">
 
-<!-- YouTube audio -->
+<!-- YouTube audio (hidden) -->
 <iframe id="yt"
 src="https://www.youtube.com/embed/RzSIDoA1ZDw?autoplay=1&mute=1&loop=1&playlist=RzSIDoA1ZDw"
 allow="autoplay"
-style="display:none"></iframe>
+style="display:none">
+</iframe>
 
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <div class="glow-rose">🌹</div>
+
   <h1>Happy Rose Day Prabhat</h1>
-  <p style="margin:20px;text-align:center;">
-    This rose is not just a flower,<br>
-    it’s a feeling 🌹
+  <p style="margin:20px;font-size:18px;">
+    This rose carries a feeling,<br>
+    soft, honest, and meant only for you 💖
   </p>
+
   <button class="accept" onclick="go(2)">Accept 🌹</button>
   <button class="reject" id="no">Can't Accept ❌</button>
-  <p style="margin-top:30px;">— Sneha 💌</p>
+
+  <p style="margin-top:30px;">— From Sneha 💌</p>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-  <h2>One Last Thing 💖</h2>
-  <p>Before this ends…</p>
-  <button class="accept" onclick="go(3)">Read 💬</button>
+  <h2>Tap the Rose 🌹</h2>
+  <p>Some feelings bloom slowly ✨</p>
+  <div class="big-rose" onclick="go(3)">🌹</div>
+  <div class="secret" onclick="go(6)">secret rose</div>
 </div>
 
-<!-- CHAT CONFESSION PAGE -->
+<!-- PAGE 3 -->
 <div class="page" id="p3">
-  <div class="chat">
-    <div class="msg from">Hey Prabhat 🌹</div>
-    <div class="msg from">This might look like a joke…</div>
-    <div class="msg from">but every line here is honest</div>
-    <div class="msg from">I don’t know when it happened</div>
-    <div class="msg from">but you started feeling special 💖</div>
-    <div class="msg from">I don’t expect anything</div>
-    <div class="msg from">I just wanted you to know</div>
-    <div class="msg from">this rose… is from my heart 🌹</div>
-    <div class="msg from">— Sneha</div>
-  </div>
+  <h1>Dear Prabhat 💖</h1>
+  <p style="font-size:20px;margin-top:20px;">
+    You don’t try to be special,<br>
+    yet somehow you are 🌙
+  </p>
+  <button class="accept" onclick="go(4)">Next 🌸</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1>Another Rose 🌹</h1>
+  <p style="font-size:20px;margin-top:20px;">
+    Some people feel like warmth,<br>
+    even on quiet days ✨
+  </p>
+  <button class="accept" onclick="go(5)">One More 💫</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+  <h1>Still Here? 💖</h1>
+  <p style="font-size:20px;margin-top:20px;">
+    Then maybe this rose<br>
+    found the right heart 🌹
+  </p>
+</div>
+
+<!-- SECRET -->
+<div class="page" id="p6">
+  <h1>🌹 Secret Rose 🌹</h1>
+  <p style="font-size:22px;margin-top:20px;">
+    Sneha ❤️ Prabhat<br><br>
+    Hidden from the world,<br>
+    but real in its own way ✨
+  </p>
 </div>
 
 <script>
-/* move reject */
+/* Move reject button */
 const no=document.getElementById("no");
 no.addEventListener("mouseover",()=>{
   no.style.left=Math.random()*80+"%";
   no.style.top=Math.random()*80+"%";
 });
 
-/* page switch */
+/* Page switch */
 function go(n){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("p"+n).classList.add("active");
 }
 
-/* music */
+/* Start music on click */
 let started=false;
 function startMusic(){
   if(!started){
@@ -186,14 +212,13 @@ function startMusic(){
   }
 }
 
-/* hearts */
-for(let i=0;i<25;i++){
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💗";
-  h.style.left=Math.random()*100+"%";
-  h.style.animationDuration=(6+Math.random()*6)+"s";
-  document.body.appendChild(h);
+/* Floating dots */
+for(let i=0;i<35;i++){
+  let d=document.createElement("div");
+  d.className="dot";
+  d.style.left=Math.random()*100+"%";
+  d.style.animationDuration=(6+Math.random()*8)+"s";
+  document.body.appendChild(d);
 }
 </script>
 
